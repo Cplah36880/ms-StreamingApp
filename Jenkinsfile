@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout SCM') {
             steps {
                 checkout scm
             }
@@ -19,10 +19,20 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                dir('backend') {
-                    sh 'docker build -t backend .'
+                dir('backend/adminService') {
+                    sh 'docker build -t backend-admin .'
                 }
             }
+        }
+
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
