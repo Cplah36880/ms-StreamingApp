@@ -19,18 +19,18 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                dir('backend/adminService') {
-                    sh 'docker build -t backend-admin .'
+                dir('backend') {
+                    sh 'docker build -f adminService/Dockerfile -t backend-admin .'
                 }
             }
         }
-
     }
 
     post {
         success {
             echo 'Pipeline completed successfully!'
         }
+
         failure {
             echo 'Pipeline failed!'
         }
